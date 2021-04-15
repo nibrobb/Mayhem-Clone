@@ -29,5 +29,5 @@ class Spaceship(MovingObject):
         self.rotation += angle
 
     def shoot(self):
-        bullet = Bullet(self.game, self.vel)
+        bullet = Bullet(self.game, self.pos, self.rotation)
         self.game.all_sprites.add(bullet)

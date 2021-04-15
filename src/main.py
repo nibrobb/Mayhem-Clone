@@ -41,6 +41,7 @@ class Game:
         self.player1.moving = 1
         # self.player2.moving = 1
         self.ships.add(self.player1)
+        self.all_sprites.add(self.player1)
         # self.ships.add(self.player2)
 
     def events(self):
