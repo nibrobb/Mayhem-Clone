@@ -1,5 +1,6 @@
 import pygame
 from pygame import Vector2
+from pygame import time
 from moving_object import MovingObject
 from bullet import Bullet
 from config import *
@@ -17,6 +18,8 @@ class Spaceship(MovingObject):
         self.game = game
         self.pos = startpos
 
+        self.last_shot = 0
+
     def thrust(self):
         self.vel += 2*self.up_vector.rotate(-self.rotation)
 
@@ -29,5 +32,9 @@ class Spaceship(MovingObject):
         self.rotation += angle
 
     def shoot(self):
-        bullet = Bullet(self.game, self.pos, self.rotation)
-        self.game.all_sprites.add(bullet)
+        if time.get_ticks() - self.last_shot > FIRE_DELAY:
+            bullet = Bullet(self.game, self)
+            self.game.all_sprites.add(bullet)
+            self.last_shot = time.get_ticks()
+
+        # bullet = Bullet(self.game, self.pos, self.rotation)

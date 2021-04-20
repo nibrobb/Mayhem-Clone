@@ -34,7 +34,6 @@ class Game:
             self.events()
             self.update()
             self.draw()
-            
 
     def spawn_spaceship(self):
         self.player1 = Spaceship(self, (420, 69))
@@ -49,16 +48,21 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.quit()
+            # if event.type == pygame.KEYDOWN:
+            #     if event.key == pygame.K_SPACE:
+            #         self.player1.shoot()        # Shoot
 
         keys = pygame.key.get_pressed()
-        if keys[ord('w')]:      # Shoot
-            self.player1.shoot()
+        if keys[ord('w')]:      # Thrust
+            self.player1.thrust()
         if keys[ord('a')]:      # Rotate left (ccw)
             self.player1.rotate(5)
-        if keys[ord('s')]:      # Thrust
-             self.player1.thrust()
+        # if keys[ord('s')]:      # Thrust
+        #      self.player1.thrust()
         if keys[ord('d')]:      # Rotate right (cc)
             self.player1.rotate(-5)
+        if keys[pygame.K_SPACE]:
+            self.player1.shoot()
             
 
     def update(self):

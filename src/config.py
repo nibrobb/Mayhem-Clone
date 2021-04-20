@@ -19,3 +19,5 @@ ARYAN = (255, 255, 255)
 
         
 BULLETSPEED = 300
+RATE_OF_FIRE = 600 # Rounds per minute
+FIRE_DELAY = 1 / (RATE_OF_FIRE / 60) * 1000
