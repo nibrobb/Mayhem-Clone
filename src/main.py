@@ -34,6 +34,7 @@ class Game:
             self.events()
             self.update()
             self.draw()
+            
 
     def spawn_spaceship(self):
         self.player1 = Spaceship(self, (420, 69))
