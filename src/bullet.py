@@ -1,3 +1,4 @@
+""" bullet.py """
 import pygame
 import copy
 from moving_object import MovingObject

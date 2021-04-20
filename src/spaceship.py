@@ -1,3 +1,4 @@
+""" spaceship.py """
 import pygame
 from pygame import Vector2
 from pygame import time

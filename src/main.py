@@ -4,6 +4,7 @@
 
 import pygame
 from config import *
+from floor_wall import FloorWall
 from spaceship import Spaceship
 
 class Game:
@@ -28,6 +29,9 @@ class Game:
         running = True
 
         self.spawn_spaceship()
+        self.floor = FloorWall(SCREEN_RES[0], 20, (SCREEN_RES[0], SCREEN_RES[1]))
+        
+        self.all_sprites.add(self.floor)
 
         while running:
             self.delta_time = self.clock.tick(FPS) / 1000.0
