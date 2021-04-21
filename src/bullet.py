@@ -10,6 +10,8 @@ class Bullet(MovingObject):
     bullet_img = pygame.Surface([5, 5], pygame.SRCALPHA)
     pygame.draw.rect(bullet_img, ARYAN, (0, 0, 5, 5))
 
+    group = pygame.sprite.Group()
+    
     def __init__(self, game, spaceship):
         # game:         The game object
         # spaceship:    The ship that called the shot
@@ -20,6 +22,7 @@ class Bullet(MovingObject):
         self.pos = copy.copy(spaceship.pos)          # using shallow-copy to only copy value
         self.angle = copy.copy(spaceship.rotation)   # -||-
         self.vel = self.up_vector.rotate(-self.angle) * BULLETSPEED
+        Bullet.group.add(self)
 
     def update(self):
         self.pos += self.vel * self.game.delta_time

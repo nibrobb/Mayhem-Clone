@@ -6,6 +6,7 @@ import pygame
 from config import *
 from floor_wall import FloorWall
 from spaceship import Spaceship
+from bullet import Bullet
 
 class Game:
     """ This is a game """
@@ -28,7 +29,7 @@ class Game:
     def run(self):
         running = True
 
-        self.spawn_spaceship()
+        self.spawn_spaceships()
         self.floor = FloorWall(SCREEN_RES[0], 20, (SCREEN_RES[0], SCREEN_RES[1]))
         
         self.all_sprites.add(self.floor)
@@ -37,10 +38,16 @@ class Game:
             self.delta_time = self.clock.tick(FPS) / 1000.0
             self.events()
             self.update()
+            collide = pygame.sprite.spritecollide(self.floor, Bullet.group, False)
+            for s in collide:
+                print("hit! {}".format(s))
+            collide = pygame.sprite.spritecollide(self.player1, FloorWall.group, False)
+            for s in collide:
+                self.player1.vel *= -1
             self.draw()
 
-    def spawn_spaceship(self):
-        self.player1 = Spaceship(self, (420, 69))
+    def spawn_spaceships(self):
+        self.player1 = Spaceship(self, (SCREEN_RES[0]//2, SCREEN_RES[1] - 50))
         # self.player2 = Spaceship(self)
         self.player1.moving = 1
         # self.player2.moving = 1
