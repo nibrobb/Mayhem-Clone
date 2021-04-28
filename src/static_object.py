@@ -3,7 +3,9 @@
 import pygame
 
 class StaticObject(pygame.sprite.Sprite):
-    """ Class to create non-moving, static objects and structures"""
+    """
+    Parent class of non-moving, static structures
+    such as walls, floors or any other immovable object
+    """
     def __init__(self):
         super().__init__()
-

@@ -1,11 +1,12 @@
 """ moving_object.py """
+
 import pygame
 from pygame import Vector2
 
 
 class MovingObject (pygame.sprite.Sprite):
-    """ Parent class of moving objects
-        Must not be instantiated
+    """
+    Parent class of moving objects
     """
     def __init__(self):
         super().__init__()
