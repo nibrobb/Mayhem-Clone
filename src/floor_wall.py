@@ -8,7 +8,7 @@ class FloorWall(MovingObject):
         super().__init__()
         floor_wall_img = pygame.Surface([width, height])
         # pygame.draw.rect(floor_wall_img, ARYAN, (0, 0, width, height))
-        floor_wall_img.fill(ARYAN)
+        floor_wall_img.fill(COLOR_WHITE)
         self.image = floor_wall_img
         self.rect = self.image.get_rect(x=pos[0]-width, y=pos[1]-height)
         self.pos = pos

@@ -47,13 +47,14 @@ class Game:
             self.draw()
 
     def spawn_spaceships(self):
-        self.player1 = Spaceship(self, (SCREEN_RES[0]//2, SCREEN_RES[1] - 50))
-        # self.player2 = Spaceship(self)
+        self.player1 = Spaceship(self, (SCREEN_RES[0]//3, SCREEN_RES[1] - 50), COLOR_RED)
+        self.player2 = Spaceship(self, (2*SCREEN_RES[0]//3, SCREEN_RES[1] - 50), COLOR_BLUE)
         self.player1.moving = 1
-        # self.player2.moving = 1
+        self.player2.moving = 1
         self.ships.add(self.player1)
+        self.ships.add(self.player2)
         self.all_sprites.add(self.player1)
-        # self.ships.add(self.player2)
+        self.all_sprites.add(self.player2)
 
     def events(self):
         for event in pygame.event.get():
@@ -65,11 +66,11 @@ class Game:
 
         keys = pygame.key.get_pressed()
         if keys[ord('w')]:      # Thrust
-            self.player1.thrust()
+            self.player1.thrust(2)
         if keys[ord('a')]:      # Rotate left (ccw)
             self.player1.rotate(5)
-        # if keys[ord('s')]:      # Thrust
-        #      self.player1.thrust()
+        if keys[ord('s')]:      # anti-Thrust/de-thrust/braking
+             self.player1.dethrust()
         if keys[ord('d')]:      # Rotate right (cc)
             self.player1.rotate(-5)
         if keys[pygame.K_SPACE]:
@@ -81,7 +82,7 @@ class Game:
         self.all_sprites.update()
 
     def draw(self):
-        self.screen.fill(REVERSE_ALBINO)
+        self.screen.fill(COLOR_BLACK)
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, (sprite.rect.x, sprite.rect.y))
         pygame.display.flip()

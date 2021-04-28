@@ -8,21 +8,25 @@ from config import *
 
 
 class Spaceship(MovingObject):
-    spaceship_original = pygame.Surface([SPACESHIP_WIDTH, SPACESHIP_HEIGHT], pygame.SRCALPHA)
-    pygame.draw.polygon(spaceship_original, SPACESHIP_COLOR, SPACESHIP_SHAPE, 0)
-    spaceship_img = pygame.transform.rotozoom(spaceship_original, 0, 0.6)
     
-    def __init__(self, game, startpos):
+    def __init__(self, game, startpos, color):
         super().__init__()
-        self.image = Spaceship.spaceship_img
+        self.spaceship_original = pygame.Surface([SPACESHIP_WIDTH, SPACESHIP_HEIGHT], pygame.SRCALPHA)
+        pygame.draw.polygon(self.spaceship_original, color, SPACESHIP_SHAPE, 0)
+        self.spaceship_img = pygame.transform.rotozoom(self.spaceship_original, 0, 0.6)
+
+        self.image = self.spaceship_img
         self.rect = self.image.get_rect()
         self.game = game
         self.pos = startpos
 
         self.last_shot = 0
 
-    def thrust(self):
-        self.vel += 2*self.up_vector.rotate(-self.rotation)
+    def thrust(self, factor):
+        self.vel += factor * self.up_vector.rotate(-self.rotation)
+    
+    def dethrust(self):
+        self.vel *= 0.95
 
     def update(self):
         self.pos += self.vel * self.game.delta_time * self.moving

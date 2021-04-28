@@ -8,7 +8,7 @@ from config import *
 class Bullet(MovingObject):
     """ Creates a single bullet that will fly in the same direction as the caller """
     bullet_img = pygame.Surface([5, 5], pygame.SRCALPHA)
-    pygame.draw.rect(bullet_img, ARYAN, (0, 0, 5, 5))
+    pygame.draw.rect(bullet_img, COLOR_WHITE, (0, 0, 5, 5))
 
     group = pygame.sprite.Group()
     
