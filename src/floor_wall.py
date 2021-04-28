@@ -1,8 +1,11 @@
+""" floor_wall.py """
 import pygame
-from moving_object import MovingObject
-from config import *
 
-class FloorWall(MovingObject):
+from config import *
+from static_object import StaticObject
+
+class FloorWall(StaticObject):
+    """ Create a boundry, wall or floor, depending on you disposition """
     group = pygame.sprite.Group()
     def __init__(self, width, height, pos):
         super().__init__()
