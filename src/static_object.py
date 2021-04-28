@@ -9,3 +9,4 @@ class StaticObject(pygame.sprite.Sprite):
     """
     def __init__(self):
         super().__init__()
+        self.pos = (0, 0)

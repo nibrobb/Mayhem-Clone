@@ -5,6 +5,7 @@
 import pygame
 from config import *
 from floor_wall import FloorWall
+from obstacle import Obstacle
 from spaceship import Spaceship
 from bullet import Bullet
 
@@ -34,6 +35,8 @@ class Game:
         
         self.all_sprites.add(self.floor)
 
+        self.spawn_obstacles()
+
         while running:
             self.delta_time = self.clock.tick(FPS) / 1000.0
             self.events()
@@ -55,6 +58,10 @@ class Game:
         self.ships.add(self.player2)
         self.all_sprites.add(self.player1)
         self.all_sprites.add(self.player2)
+    
+    def spawn_obstacles(self):
+        obs = Obstacle(COLOR_GREEN, 50, 50, (345, 345))
+        self.all_sprites.add(obs)
 
     def events(self):
         for event in pygame.event.get():
@@ -70,7 +77,7 @@ class Game:
         if keys[ord('d')]:              # Rotate right (cc)
             self.player1.rotate(-5)
         if keys[pygame.K_SPACE]:
-            self.player1.shoot()
+            self.player1.fire()
         #---------- Player 2 ----------#
         if keys[pygame.K_LEFT]:
             self.player2.rotate(5)
@@ -79,7 +86,7 @@ class Game:
         if keys[pygame.K_UP]:
             self.player2.thrust(2)
         if keys[pygame.K_RCTRL]:
-            self.player2.shoot()
+            self.player2.fire()
 
             
 

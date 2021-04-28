@@ -36,7 +36,7 @@ class Spaceship(MovingObject):
     def rotate(self, angle : int):
         self.rotation += angle
 
-    def shoot(self):
+    def fire(self):
         if time.get_ticks() - self.last_shot > FIRE_DELAY:
             bullet = Bullet(self.game, self)
             self.game.all_sprites.add(bullet)
