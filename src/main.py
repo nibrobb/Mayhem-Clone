@@ -60,21 +60,31 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.quit()
-            # if event.type == pygame.KEYDOWN:
-            #     if event.key == pygame.K_SPACE:
-            #         self.player1.shoot()        # Shoot
 
+        #---------- Player 1 ----------#
         keys = pygame.key.get_pressed()
-        if keys[ord('w')]:      # Thrust
+        if keys[ord('w')]:              # Thrust
             self.player1.thrust(2)
-        if keys[ord('a')]:      # Rotate left (ccw)
+        if keys[ord('a')]:              # Rotate left (ccw)
             self.player1.rotate(5)
-        if keys[ord('s')]:      # anti-Thrust/de-thrust/braking
+        if keys[ord('s')]:              # anti-Thrust/de-thrust/braking
              self.player1.dethrust()
-        if keys[ord('d')]:      # Rotate right (cc)
+        if keys[ord('d')]:              # Rotate right (cc)
             self.player1.rotate(-5)
         if keys[pygame.K_SPACE]:
             self.player1.shoot()
+        #---------- Player 2 ----------#
+        if keys[pygame.K_LEFT]:
+            self.player2.rotate(5)
+        if keys[pygame.K_RIGHT]:
+            self.player2.rotate(-5)
+        if keys[pygame.K_UP]:
+            self.player2.thrust(2)
+        if keys[pygame.K_DOWN]:
+            self.player2.dethrust()
+        if keys[pygame.K_RCTRL]:
+            self.player2.shoot()
+
             
 
     def update(self):
