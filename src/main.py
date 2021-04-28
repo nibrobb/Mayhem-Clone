@@ -67,8 +67,6 @@ class Game:
             self.player1.thrust(2)
         if keys[ord('a')]:              # Rotate left (ccw)
             self.player1.rotate(5)
-        if keys[ord('s')]:              # anti-Thrust/de-thrust/braking
-             self.player1.dethrust()
         if keys[ord('d')]:              # Rotate right (cc)
             self.player1.rotate(-5)
         if keys[pygame.K_SPACE]:
@@ -80,8 +78,6 @@ class Game:
             self.player2.rotate(-5)
         if keys[pygame.K_UP]:
             self.player2.thrust(2)
-        if keys[pygame.K_DOWN]:
-            self.player2.dethrust()
         if keys[pygame.K_RCTRL]:
             self.player2.shoot()
 
