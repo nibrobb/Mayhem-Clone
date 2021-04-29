@@ -16,6 +16,8 @@ class Bullet(MovingObject):
         # game:         The game object
         # spaceship:    The ship that called the shot
         super().__init__()
+        self.shooter = spaceship
+
         self.image = Bullet.bullet_img
         self.rect = self.image.get_rect()
         self.game = game
