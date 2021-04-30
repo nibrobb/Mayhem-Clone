@@ -27,9 +27,10 @@ class Spaceship(MovingObject):
         self.bullets = pygame.sprite.Group()
 
         self.name = name + str(Spaceship.callcount)
-        self.health = 100
-        self.ammo = 30*10
-        self.score = 0
+        self.health = 100   # Percentage of health
+        self.ammo = 30*10   # Number of bullets
+        self.fuel = 500     # Liters of fuel
+        self.score = 0      # Points
 
     def thrust(self, factor):
         self.vel += factor * self.up_vector.rotate(-self.rotation)
@@ -42,8 +43,8 @@ class Spaceship(MovingObject):
         self.rect = self.image.get_rect(center=self.pos)
         self.image = pygame.transform.rotate(self.spaceship_img, self.rotation)
         if self.health <= 0:
-            print("{} died".format(self.name))
             self.kill()
+            print("{} died".format(self.name))
 
     def rotate(self, angle : int):
         self.rotation += angle
@@ -55,5 +56,3 @@ class Spaceship(MovingObject):
             self.bullets.add(bullet)
             self.game.all_sprites.add(bullet)
             self.last_shot = time.get_ticks()
-
-        # bullet = Bullet(self.game, self.pos, self.rotation)
