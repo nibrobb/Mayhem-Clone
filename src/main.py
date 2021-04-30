@@ -20,6 +20,8 @@ class Game:
         self.ships = pygame.sprite.Group()
         self.all_sprites = pygame.sprite.Group()
 
+        self.run()
+
 
     def run(self):
         """ Main game-loop, runs until player quits """
@@ -199,5 +201,3 @@ class Game:
 
 if __name__ == '__main__':
     game = Game()
-    while True:
-        game.run()
