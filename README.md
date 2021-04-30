@@ -13,4 +13,4 @@ Controls:
 * <kbd>Up</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thrust
 * <kbd>Left</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rotate left
 * <kbd>Right</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rotate right
-* <kbd>Left Ctrl</kbd>&nbsp;Fire
+* <kbd>Right Ctrl</kbd>&nbsp;Fire
