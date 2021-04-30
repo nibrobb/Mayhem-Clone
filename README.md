@@ -10,7 +10,7 @@ Controls:
 * <kbd>Space</kbd>&nbsp;&nbsp;&nbsp;Fire
 
 ### Player 2
-* <kbd>Up</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thrust
-* <kbd>Left</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rotate left
+* <kbd>Up</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thrust
+* <kbd>Left</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rotate left
 * <kbd>Right</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rotate right
 * <kbd>Left Ctrl</kbd>&nbsp;Fire
