@@ -26,7 +26,11 @@ class Spaceship(MovingObject):
 
         self.bullets = pygame.sprite.Group()
 
-        self.name = name + str(Spaceship.callcount)
+        # Give a name to the players if they have not specified a unique name
+        if name == "Player":
+            self.name = name + str(Spaceship.callcount)
+        else:
+            self.name = name
         self.health = 100   # Percentage of health
         self.ammo = 30*10   # Number of bullets
         self.fuel = 500     # Liters of fuel
@@ -34,10 +38,8 @@ class Spaceship(MovingObject):
 
     def thrust(self, factor):
         self.vel += factor * self.up_vector.rotate(-self.rotation)
-    
-    def dethrust(self):
-        self.vel *= 0.95
 
+    
     def update(self):
         self.pos += self.vel * self.game.delta_time * self.moving
         self.rect = self.image.get_rect(center=self.pos)
