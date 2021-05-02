@@ -143,6 +143,7 @@ class Game:
 
 
     def update(self):
+        """ Calls update() on sprite groups, only used for MovingObjects """
         self.ships.update()
         self.all_sprites.update()
     
