@@ -36,17 +36,21 @@ class Spaceship(MovingObject):
         self.fuel = 500     # Liters of fuel
         self.score = 0      # Points
 
-    def thrust(self, factor):
-        self.vel += factor * self.up_vector.rotate(-self.rotation)
+    def thrust(self, factor = 5):
+        if self.vel.magnitude_squared() < SPACESHIP_MAX_SPEED_SQUARED:
+            self.vel += factor * self.up_vector.rotate(-self.rotation)
 
-    
+
     def update(self):
+        self.vel += GRAVITY
+        self.vel *= DRAG_COEFICIENT
         self.pos += self.vel * self.game.delta_time * self.moving
         self.rect = self.image.get_rect(center=self.pos)
         self.image = pygame.transform.rotate(self.spaceship_img, self.rotation)
         if self.health <= 0:
             self.kill()
             print("{} died".format(self.name))
+        print("{}'s speed is {:.2f}".format(self.name, self.vel.magnitude()))
 
     def rotate(self, angle : int):
         self.rotation += angle

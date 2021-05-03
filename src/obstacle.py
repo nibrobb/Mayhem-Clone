@@ -18,3 +18,5 @@ class Obstacle(StaticObject):
         self.rect = self.image.get_rect(center=pos)
 
         Obstacle.group.add(self)
+
+        self.collidable = True

@@ -76,8 +76,9 @@ class Game:
             collide_player1_bullet = pygame.sprite.spritecollide(self.player1, self.player2.bullets, False)
             for c in collide_player1_bullet:
                 print(f"Player1 got shot. Health = {self.player1.health}")
-                self.player1.health -= 20
-                self.player2.score += 5
+                c.kill()                    # Remove bullet
+                self.player1.health -= BULLET_DAMAGE
+                self.player2.score += HIT_SCORE
 
             collide_player1_floor_wall = pygame.sprite.spritecollide(self.player1, FloorWall.group, False)
             for c in collide_player1_floor_wall:
@@ -93,9 +94,10 @@ class Game:
         if self.player2.alive():
             collide_player2_bullet = pygame.sprite.spritecollide(self.player2, self.player1.bullets, False)
             for c in collide_player2_bullet:
+                c.kill()
                 print(f"Player2 got shot. Health = {self.player2.health}")
-                self.player2.health -= 20
-                self.player1.score += 5
+                self.player2.health -= BULLET_DAMAGE
+                self.player1.score += HIT_SCORE
 
             collide_player2_floor_wall = pygame.sprite.spritecollide(self.player2, FloorWall.group, False)
             for c in collide_player2_floor_wall:
@@ -122,7 +124,7 @@ class Game:
         #---------- Player 1 ----------#
         if self.player1.alive():
             if keys[ord('w')]:              # Thrust
-                self.player1.thrust(2)
+                self.player1.thrust()
             if keys[ord('a')]:              # Rotate left (ccw)
                 self.player1.rotate(5)
             if keys[ord('d')]:              # Rotate right (cc)
@@ -137,7 +139,7 @@ class Game:
             if keys[pygame.K_RIGHT]:
                 self.player2.rotate(-5)
             if keys[pygame.K_UP]:
-                self.player2.thrust(2)
+                self.player2.thrust()
             if keys[pygame.K_RCTRL]:
                 self.player2.fire()
 
@@ -151,16 +153,38 @@ class Game:
         text_size = 20
         font_family = "Arial"
 
-        text_list = []
+        player1_text_list = []
 
+        # Player1 name
         player1_name_text = self.setup_font(str(self.player1.name), font_family, 22, COLOR_WHITE)
-        text_list.append(player1_name_text)
+        player1_text_list.append(player1_name_text)
+        # Player1 ammo
         player1_ammo_text = self.setup_font("Ammo: {}".format(self.player1.ammo), font_family, text_size, COLOR_WHITE)
-        text_list.append(player1_ammo_text)
+        player1_text_list.append(player1_ammo_text)
+        # Player1 health
         player1_health_text = self.setup_font("Health: {}".format(self.player1.health), font_family, text_size, COLOR_WHITE)
-        text_list.append(player1_health_text)
+        player1_text_list.append(player1_health_text)
+        # Player1 fuel
+        player1_fuel_text = self.setup_font("Fuel: {}".format(self.player1.fuel), font_family, text_size, COLOR_WHITE)
+        player1_text_list.append(player1_fuel_text)
+        #Player1 score
+        player1_score_text = self.setup_font("Score: {}".format(self.player1.score), font_family, text_size, COLOR_WHITE)
+        player1_text_list.append(player1_score_text)
 
-        self.blit_text(text_list, (0, SCREEN_RES[1]-100))
+        self.blit_text(player1_text_list, BOTTOM_LEFT)
+
+
+
+        player2_text_list = []
+
+        player2_name_text = self.setup_font(str(self.player2.name), font_family, 22, COLOR_WHITE)
+        player2_text_list.append(player2_name_text)
+        player2_ammo_text = self.setup_font("Ammo: {}".format(self.player2.ammo), font_family, text_size, COLOR_WHITE)
+        player2_text_list.append(player2_ammo_text)
+        player2_health_text = self.setup_font("Health: {}".format(self.player2.health), font_family, text_size, COLOR_WHITE)
+        player2_text_list.append(player2_health_text)
+
+        self.blit_text(player2_text_list, BOTTOM_RIGHT)
 
 
 
@@ -170,14 +194,23 @@ class Game:
         text_surface = text_font.render(text, True, color)
         return text_surface
     
-    def blit_text(self, text_list, pos) -> None:
+    def blit_text(self, text_list, alignment) -> None:
         """ Prints all the text in text_list to the screen """
-        offset = 0
-        background_width = 0
-        background_height = 0
 
+        offset = 0
         background_width = 150
-        background_height = 100
+        background_height = 120
+        pos = [0, 0]
+
+
+        if alignment == BOTTOM_LEFT:
+            pos[0] = 0
+            pos[1] = SCREEN_RES[1] - background_height
+        elif alignment == BOTTOM_RIGHT:
+            pos[0] = SCREEN_RES[0] - background_width
+            pos[1] = SCREEN_RES[1] - background_height
+        else:
+            pos = (0,0)
 
         background = pygame.Surface((background_width + 8, background_height + 8))
         background.fill(COLOR_GRAY)

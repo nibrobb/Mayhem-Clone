@@ -15,5 +15,4 @@ class MovingObject (pygame.sprite.Sprite):
         self.up_vector = Vector2(0, -1)
         self.rotation = 0
         
-        self.gravity = 9.8
         self.moving = 0
