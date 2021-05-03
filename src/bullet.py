@@ -1,6 +1,6 @@
 """ bullet.py - Defines bullets """
-import pygame
 import copy
+import pygame
 from moving_object import MovingObject
 from config import *
 
@@ -11,7 +11,7 @@ class Bullet(MovingObject):
     pygame.draw.rect(bullet_img, COLOR_WHITE, (0, 0, 5, 5))
 
     group = pygame.sprite.Group()
-    
+
     def __init__(self, game, spaceship) -> None:
         # game:         The game object
         # spaceship:    The ship that called the shot

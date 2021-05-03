@@ -10,7 +10,7 @@ class FloorWall(StaticObject):
     group = pygame.sprite.Group()
     def __init__(self, width, height, pos, color : Tuple[int, int, int] = COLOR_WHITE) -> None:
         super().__init__()
-        
+
         self.width = width
         self.height = height
         self.pos = pos
@@ -21,6 +21,6 @@ class FloorWall(StaticObject):
         floor_wall_img.fill(self.color)
 
         self.image = floor_wall_img
-        
+
         self.rect = self.image.get_rect(x=pos[0]-width, y=pos[1]-height)
         FloorWall.group.add(self)
