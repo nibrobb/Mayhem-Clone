@@ -48,8 +48,11 @@ class Game:
 
 
     def spawn_floor_wall(self) -> None:
-        self.floor = FloorWall(SCREEN_RES[0], 20, (SCREEN_RES[0], SCREEN_RES[1]))
-        self.all_sprites.add(self.floor)
+        self.floor = FloorWall(SCREEN_RES[0], 20, (SCREEN_RES[0], SCREEN_RES[1]), COLOR_DARK_GRAY)
+        self.roof  = FloorWall(SCREEN_RES[0], 20, (SCREEN_RES[0], 20), COLOR_DARK_GRAY)
+        self.wall1 = FloorWall(20, SCREEN_RES[1], (20, SCREEN_RES[1]), COLOR_DARK_GRAY)
+        self.wall2 = FloorWall(20, SCREEN_RES[1], (SCREEN_RES[0], SCREEN_RES[1]), COLOR_DARK_GRAY)
+        self.all_sprites.add(self.floor, self.roof, self.wall1, self.wall2)
     
 
     def spawn_obstacles(self) -> None:
@@ -115,6 +118,9 @@ class Game:
             if event.type == pygame.KEYDOWN:
                 self.player1.moving = 1
                 self.player2.moving = 1
+                if event.key == pygame.K_r:
+                    self.reset()
+                    
 
         keys = pygame.key.get_pressed()
 
@@ -217,7 +223,7 @@ class Game:
         else:
             pos = (0,0)
 
-        background = pygame.Surface((background_width + 8, background_height + 8))
+        background = pygame.Surface((background_width, background_height))
         background.fill(COLOR_GRAY)
         self.screen.blit(background, pos)
 
@@ -232,6 +238,10 @@ class Game:
         self.display_info()
         pygame.display.flip()
 
+    def reset(self) -> None:
+        self.player1.reset()
+        self.player2.reset()
+        self.all_sprites.add(self.player1, self.player2)
 
     def quit(self) -> None:
         pygame.quit()

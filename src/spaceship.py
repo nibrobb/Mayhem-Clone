@@ -22,6 +22,7 @@ class Spaceship(MovingObject):
         self.image = self.spaceship_img
         self.rect = self.image.get_rect()
         self.game = game
+        self.startpos = startpos
         self.pos = startpos
 
         self.last_shot = 0
@@ -33,22 +34,27 @@ class Spaceship(MovingObject):
             self.name = name + str(Spaceship.callcount)
         else:
             self.name = name
-        self.health = 100   # Percentage of health
-        self.ammo = 30*10   # Number of bullets
-        self.fuel = 500     # Liters of fuel
-        self.score = 0      # Points
+        self.health = STARTING_HEALTH   # Percentage of health
+        self.ammo = STARTING_AMMO       # Number of bullets
+        self.fuel = STARTING_FUEL       # Liters of fuel
+        self.score = 0                  # Points
 
     def thrust(self, factor = 5) -> None:
         """ Accelerate the ship in the direction in which it is pointing """
-        if self.vel.magnitude_squared() < SPACESHIP_MAX_SPEED_SQUARED:
+        if self.vel.magnitude_squared() < SPACESHIP_MAX_SPEED_SQUARED and self.fuel > 0:
             self.vel += factor * self.up_vector.rotate(-self.rotation)
+            self.fuel -= THRUST_FUEL_CONSUMPTION
 
 
     def update(self) -> None:
         """ Update position and apply gravity and drag, and set new image """
         self.vel += GRAVITY
         self.vel *= DRAG_COEFICIENT
-        self.fuel -= 0.1337 * self.moving
+        if self.fuel > 0:
+            self.fuel -= IDLE_FUEL_CONSUMPTION * self.moving
+        else:
+            self.fuel = 0
+
         self.pos += self.vel * self.game.delta_time * self.moving
         self.rect = self.image.get_rect(center=self.pos)
         self.image = pygame.transform.rotate(self.spaceship_img, self.rotation)
@@ -58,12 +64,24 @@ class Spaceship(MovingObject):
         print("{}'s speed is {:.2f}".format(self.name, self.vel.magnitude()))
 
     def rotate(self, angle : int) -> None:
+        """ Turn - positive for counter-clockwise rotation, negative for clockwise rotation """
         self.rotation += angle
 
     def fire(self) -> None:
+        """ Fire a bullet in the dierection you are heading """
         if time.get_ticks() - self.last_shot > FIRE_DELAY and self.ammo > 0:
             self.ammo -= 1
             bullet = Bullet(self.game, self)
             self.bullets.add(bullet)
             self.game.all_sprites.add(bullet)
             self.last_shot = time.get_ticks()
+
+    def reset(self):
+        """ Reset all working stats, except score, and position """
+        self.health     = STARTING_HEALTH
+        self.ammo       = STARTING_AMMO
+        self.fuel       = STARTING_FUEL
+        self.vel        = Vector2(0,0)
+        self.pos        = self.startpos
+        self.moving     = 0
+        self.rotation   = 0
