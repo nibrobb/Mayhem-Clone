@@ -8,8 +8,10 @@ from config import *
 
 
 class Spaceship(MovingObject):
+    """ Create a new spaceship using this class """
     callcount = 0
-    def __init__(self, game, startpos, color, name : str = "Player"):
+    def __init__(self, game, startpos, color, name : str = "Player") -> None:
+        """ Make a new Spaceship with fuel, ammo, a name and more """
         super().__init__()
         Spaceship.callcount += 1
 
@@ -36,14 +38,17 @@ class Spaceship(MovingObject):
         self.fuel = 500     # Liters of fuel
         self.score = 0      # Points
 
-    def thrust(self, factor = 5):
+    def thrust(self, factor = 5) -> None:
+        """ Accelerate the ship in the direction in which it is pointing """
         if self.vel.magnitude_squared() < SPACESHIP_MAX_SPEED_SQUARED:
             self.vel += factor * self.up_vector.rotate(-self.rotation)
 
 
-    def update(self):
+    def update(self) -> None:
+        """ Update position and apply gravity and drag, and set new image """
         self.vel += GRAVITY
         self.vel *= DRAG_COEFICIENT
+        self.fuel -= 0.16
         self.pos += self.vel * self.game.delta_time * self.moving
         self.rect = self.image.get_rect(center=self.pos)
         self.image = pygame.transform.rotate(self.spaceship_img, self.rotation)
@@ -52,10 +57,10 @@ class Spaceship(MovingObject):
             print("{} died".format(self.name))
         print("{}'s speed is {:.2f}".format(self.name, self.vel.magnitude()))
 
-    def rotate(self, angle : int):
+    def rotate(self, angle : int) -> None:
         self.rotation += angle
 
-    def fire(self):
+    def fire(self) -> None:
         if time.get_ticks() - self.last_shot > FIRE_DELAY and self.ammo > 0:
             self.ammo -= 1
             bullet = Bullet(self.game, self)

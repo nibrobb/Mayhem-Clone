@@ -1,4 +1,4 @@
-""" config.py """
+""" config.py - All global configurations and constants stored here """
 from pygame import Vector2
 
 SCREEN_RES = [1280, 720]
@@ -7,7 +7,7 @@ TITLE = "MAYHEM by Robin Kristiansen (c) 2021"
 
 FPS = 60
 
-GRAVITY = Vector2(0, 1.337)
+GRAVITY = Vector2(0, 0.1337)
 
 SPACESHIP_SHAPE = [(15, 0), (0, 50), (15, 40), (30, 50), (15, 0)]
 COLOR_RED =   (255, 0, 0)

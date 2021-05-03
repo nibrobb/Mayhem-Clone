@@ -8,7 +8,7 @@ from static_object import StaticObject
 class FloorWall(StaticObject):
     """ Create a boundry, wall or floor, depending on you disposition """
     group = pygame.sprite.Group()
-    def __init__(self, width, height, pos, color : Tuple[int, int, int] = COLOR_WHITE):
+    def __init__(self, width, height, pos, color : Tuple[int, int, int] = COLOR_WHITE) -> None:
         super().__init__()
         
         self.width = width

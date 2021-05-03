@@ -11,7 +11,7 @@ from bullet import Bullet
 
 class Game:
     """ This is a game """
-    def __init__(self):
+    def __init__(self) -> None:
         pygame.init()
         self.screen = pygame.display.set_mode(SCREEN_RES)
         pygame.display.set_caption(TITLE)
@@ -23,7 +23,7 @@ class Game:
         self.run()
 
 
-    def run(self):
+    def run(self) -> None:
         """ Main game-loop, runs until player quits """
         running = True
 
@@ -39,7 +39,7 @@ class Game:
             self.draw()
 
 
-    def spawn_spaceships(self):
+    def spawn_spaceships(self) -> None:
         """ Spawns players spaceships """
         self.player1 = Spaceship(self, (SCREEN_RES[0]//3, SCREEN_RES[1] - 50), COLOR_RED)
         self.player2 = Spaceship(self, (2*SCREEN_RES[0]//3, SCREEN_RES[1] - 50), COLOR_BLUE)
@@ -51,18 +51,18 @@ class Game:
         self.all_sprites.add(self.player2)
 
 
-    def spawn_floor_wall(self):
+    def spawn_floor_wall(self) -> None:
         self.floor = FloorWall(SCREEN_RES[0], 20, (SCREEN_RES[0], SCREEN_RES[1]))
         self.all_sprites.add(self.floor)
     
 
-    def spawn_obstacles(self):
+    def spawn_obstacles(self) -> None:
         """ Spawns obstacles """
         obs = Obstacle(COLOR_GREEN, 50, 50, (345, 345))
         self.all_sprites.add(obs)
 
 
-    def collision(self):
+    def collision(self) -> None:
         """ Handles collision """
         collide_floor_bullet = pygame.sprite.spritecollide(self.floor, Bullet.group, False)
         for c in collide_floor_bullet:
@@ -113,7 +113,7 @@ class Game:
 
 
 
-    def events(self):
+    def events(self) -> None:
         """ Handles input """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -144,7 +144,7 @@ class Game:
                 self.player2.fire()
 
 
-    def update(self):
+    def update(self) -> None:
         """ Calls update() on sprite groups, only used for MovingObjects """
         self.ships.update()
         self.all_sprites.update()
@@ -165,7 +165,7 @@ class Game:
         player1_health_text = self.setup_font("Health: {}".format(self.player1.health), font_family, text_size, COLOR_WHITE)
         player1_text_list.append(player1_health_text)
         # Player1 fuel
-        player1_fuel_text = self.setup_font("Fuel: {}".format(self.player1.fuel), font_family, text_size, COLOR_WHITE)
+        player1_fuel_text = self.setup_font("Fuel: {:.0f}".format(self.player1.fuel), font_family, text_size, COLOR_WHITE)
         player1_text_list.append(player1_fuel_text)
         #Player1 score
         player1_score_text = self.setup_font("Score: {}".format(self.player1.score), font_family, text_size, COLOR_WHITE)
@@ -177,12 +177,21 @@ class Game:
 
         player2_text_list = []
 
+        # Player2 name
         player2_name_text = self.setup_font(str(self.player2.name), font_family, 22, COLOR_WHITE)
         player2_text_list.append(player2_name_text)
+        # Player2 ammo
         player2_ammo_text = self.setup_font("Ammo: {}".format(self.player2.ammo), font_family, text_size, COLOR_WHITE)
         player2_text_list.append(player2_ammo_text)
+        # Player2 health
         player2_health_text = self.setup_font("Health: {}".format(self.player2.health), font_family, text_size, COLOR_WHITE)
         player2_text_list.append(player2_health_text)
+        # Player2 fuel
+        player2_fuel_text = self.setup_font("Fuel: {:.0f}".format(self.player2.fuel), font_family, text_size, COLOR_WHITE)
+        player2_text_list.append(player2_fuel_text)
+        #Player2 score
+        player2_score_text = self.setup_font("Score: {}".format(self.player2.score), font_family, text_size, COLOR_WHITE)
+        player2_text_list.append(player2_score_text)
 
         self.blit_text(player2_text_list, BOTTOM_RIGHT)
 
@@ -202,7 +211,6 @@ class Game:
         background_height = 120
         pos = [0, 0]
 
-
         if alignment == BOTTOM_LEFT:
             pos[0] = 0
             pos[1] = SCREEN_RES[1] - background_height
@@ -216,12 +224,11 @@ class Game:
         background.fill(COLOR_GRAY)
         self.screen.blit(background, pos)
 
-        # Iterate through the list of surfaces and draw them one by one, with an offset
         for text in text_list:
             self.screen.blit(text, (pos[0] + 4, pos[1] + offset))
             offset += text.get_height()
 
-    def draw(self):
+    def draw(self) -> None:
         self.screen.fill(COLOR_BLACK)
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, (sprite.rect.x, sprite.rect.y))
@@ -229,7 +236,7 @@ class Game:
         pygame.display.flip()
 
 
-    def quit(self):
+    def quit(self) -> None:
         pygame.quit()
 
 

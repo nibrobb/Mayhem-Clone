@@ -8,7 +8,7 @@ class MovingObject (pygame.sprite.Sprite):
     """
     Parent class of moving objects
     """
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.pos = Vector2(0,0)
         self.vel = Vector2(0,0)

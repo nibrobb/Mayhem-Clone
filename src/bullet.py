@@ -1,4 +1,4 @@
-""" bullet.py """
+""" bullet.py - Defines bullets """
 import pygame
 import copy
 from moving_object import MovingObject
@@ -12,7 +12,7 @@ class Bullet(MovingObject):
 
     group = pygame.sprite.Group()
     
-    def __init__(self, game, spaceship):
+    def __init__(self, game, spaceship) -> None:
         # game:         The game object
         # spaceship:    The ship that called the shot
         super().__init__()
@@ -26,7 +26,8 @@ class Bullet(MovingObject):
         self.vel = self.up_vector.rotate(-self.angle) * BULLETSPEED
         Bullet.group.add(self)
 
-    def update(self):
+    def update(self) -> None:
+        """ Make the bullet move and correctly set the image """
         self.pos += self.vel * self.game.delta_time
         self.rect = self.image.get_rect(center=self.pos)
         self.image = pygame.transform.rotate(self.bullet_img, self.rotation)
