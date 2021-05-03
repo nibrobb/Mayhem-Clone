@@ -48,7 +48,7 @@ class Spaceship(MovingObject):
         """ Update position and apply gravity and drag, and set new image """
         self.vel += GRAVITY
         self.vel *= DRAG_COEFICIENT
-        self.fuel -= 0.16
+        self.fuel -= 0.1337 * self.moving
         self.pos += self.vel * self.game.delta_time * self.moving
         self.rect = self.image.get_rect(center=self.pos)
         self.image = pygame.transform.rotate(self.spaceship_img, self.rotation)

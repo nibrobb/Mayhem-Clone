@@ -1,9 +1,9 @@
-""" obstacle.py """
+""" obstacle.py - Defines obstacles in the world """
 import pygame
 from static_object import StaticObject
 
 class Obstacle(StaticObject):
-
+    """ Defines obstacles """
     group = pygame.sprite.Group()
 
     def __init__(self, color, width, height, pos):

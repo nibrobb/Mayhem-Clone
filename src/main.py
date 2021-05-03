@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-""" Mayhem clone by Robin Kristiansen (c) 2021 """
+""" main.py - Mayhem clone by Robin Kristiansen (c) 2021 """
 
 import pygame
 from config import *
 from floor_wall import FloorWall
-from obstacle import Obstacle
 from spaceship import Spaceship
+from obstacle import Obstacle
 from bullet import Bullet
 
 class Game:
-    """ This is a game """
+    """  """
     def __init__(self) -> None:
         pygame.init()
         self.screen = pygame.display.set_mode(SCREEN_RES)
@@ -43,12 +43,8 @@ class Game:
         """ Spawns players spaceships """
         self.player1 = Spaceship(self, (SCREEN_RES[0]//3, SCREEN_RES[1] - 50), COLOR_RED)
         self.player2 = Spaceship(self, (2*SCREEN_RES[0]//3, SCREEN_RES[1] - 50), COLOR_BLUE)
-        self.player1.moving = 1
-        self.player2.moving = 1
-        self.ships.add(self.player1)
-        self.ships.add(self.player2)
-        self.all_sprites.add(self.player1)
-        self.all_sprites.add(self.player2)
+        self.ships.add(self.player1, self.player2)
+        self.all_sprites.add(self.player1, self.player2)
 
 
     def spawn_floor_wall(self) -> None:
@@ -58,31 +54,31 @@ class Game:
 
     def spawn_obstacles(self) -> None:
         """ Spawns obstacles """
-        obs = Obstacle(COLOR_GREEN, 50, 50, (345, 345))
+        obs = Obstacle(COLOR_GREEN, 100, 100, (SCREEN_RES[0]//2, SCREEN_RES[1]//2))
         self.all_sprites.add(obs)
 
 
     def collision(self) -> None:
-        """ Handles collision """
-        collide_floor_bullet = pygame.sprite.spritecollide(self.floor, Bullet.group, False)
-        for c in collide_floor_bullet:
-            c.kill()
+        """ Handles collision (not very optimzed) """
 
-        collide_obstacle_bullet = pygame.sprite.groupcollide(Bullet.group, Obstacle.group, False, False)
-        for c in collide_obstacle_bullet:
-            c.kill()
+        collide_bullet_floor_wall = pygame.sprite.groupcollide(Bullet.group, FloorWall.group, False, False)
+        for bullet in collide_bullet_floor_wall:
+            bullet.kill()
+
+        collide_bullet_obstacle = pygame.sprite.groupcollide(Bullet.group, Obstacle.group, False, False)
+        for bullet in collide_bullet_obstacle:
+            bullet.kill()
+
 
         if self.player1.alive():
             collide_player1_bullet = pygame.sprite.spritecollide(self.player1, self.player2.bullets, False)
             for c in collide_player1_bullet:
-                print(f"Player1 got shot. Health = {self.player1.health}")
-                c.kill()                    # Remove bullet
+                c.kill()
                 self.player1.health -= BULLET_DAMAGE
                 self.player2.score += HIT_SCORE
 
             collide_player1_floor_wall = pygame.sprite.spritecollide(self.player1, FloorWall.group, False)
             for c in collide_player1_floor_wall:
-                print(f"{c}")
                 self.player1.vel *= -1
                 self.player1.health -= 5
             
@@ -95,13 +91,11 @@ class Game:
             collide_player2_bullet = pygame.sprite.spritecollide(self.player2, self.player1.bullets, False)
             for c in collide_player2_bullet:
                 c.kill()
-                print(f"Player2 got shot. Health = {self.player2.health}")
                 self.player2.health -= BULLET_DAMAGE
                 self.player1.score += HIT_SCORE
 
             collide_player2_floor_wall = pygame.sprite.spritecollide(self.player2, FloorWall.group, False)
             for c in collide_player2_floor_wall:
-                print(f"{c}")
                 self.player2.vel *= -1
                 self.player2.health -= 5
 
@@ -118,6 +112,9 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.quit()
+            if event.type == pygame.KEYDOWN:
+                self.player1.moving = 1
+                self.player2.moving = 1
 
         keys = pygame.key.get_pressed()
 
