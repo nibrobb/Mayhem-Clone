@@ -77,7 +77,7 @@ class Spaceship(MovingObject):
             self.last_shot = time.get_ticks()
 
     def reset(self):
-        """ Reset all working stats, except score, and position """
+        """ Reset all working stats, except score """
         self.health     = STARTING_HEALTH
         self.ammo       = STARTING_AMMO
         self.fuel       = STARTING_FUEL

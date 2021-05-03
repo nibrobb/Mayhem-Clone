@@ -53,7 +53,7 @@ class Game:
         self.wall1 = FloorWall(20, SCREEN_RES[1], (20, SCREEN_RES[1]), COLOR_DARK_GRAY)
         self.wall2 = FloorWall(20, SCREEN_RES[1], (SCREEN_RES[0], SCREEN_RES[1]), COLOR_DARK_GRAY)
         self.all_sprites.add(self.floor, self.roof, self.wall1, self.wall2)
-    
+
 
     def spawn_obstacles(self) -> None:
         """ Spawns obstacles """
