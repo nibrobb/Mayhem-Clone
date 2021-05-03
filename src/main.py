@@ -3,8 +3,10 @@
 """ main.py - Mayhem clone by Robin Kristiansen (c) 2021 """
 
 import pygame
+from pygame.constants import BLEND_ADD
 from config import *
 from floor_wall import FloorWall
+from refuel_station import RefuelStation
 from spaceship import Spaceship
 from obstacle import Obstacle
 from bullet import Bullet
@@ -30,6 +32,7 @@ class Game:
         self.spawn_spaceships()
         self.spawn_floor_wall()
         self.spawn_obstacles()
+        self.spawn_refuel_station()
 
         while running:
             self.delta_time = self.clock.tick(FPS) / 1000.0
@@ -60,6 +63,10 @@ class Game:
         obs = Obstacle(COLOR_GREEN, 100, 100, (SCREEN_RES[0]//2, SCREEN_RES[1]//2))
         self.all_sprites.add(obs)
 
+    def spawn_refuel_station(self) -> None:
+        self.blue_station = RefuelStation(TEAM_BLUE, (100, 500))
+        self.red_station = RefuelStation(TEAM_RED, (SCREEN_RES[0] - 100, 500))
+        self.all_sprites.add(self.blue_station, self.red_station)
 
     def collision(self) -> None:
         """ Handles collision (not very optimzed) """
@@ -83,12 +90,17 @@ class Game:
             collide_player1_floor_wall = pygame.sprite.spritecollide(self.player1, FloorWall.group, False)
             for c in collide_player1_floor_wall:
                 self.player1.vel *= -1
-                self.player1.health -= 5
+                self.player1.health -= WALL_COLLISION_DAMAGE
             
             collide_player1_obstacle = pygame.sprite.spritecollide(self.player1, Obstacle.group, False)
             for c in collide_player1_obstacle:
                 self.player1.vel *= -1
-                self.player1.health -= 10
+                self.player1.health -= OBSTACLE_HIT_DAMAGE
+
+            if pygame.Rect.colliderect(self.player1.rect, self.red_station.rect) == True:
+                self.player1.vel *= -0.99
+                if self.player1.fuel < FUEL_TANK_SIZE:
+                    self.player1.fuel += 1
 
         if self.player2.alive():
             collide_player2_bullet = pygame.sprite.spritecollide(self.player2, self.player1.bullets, False)
@@ -100,12 +112,17 @@ class Game:
             collide_player2_floor_wall = pygame.sprite.spritecollide(self.player2, FloorWall.group, False)
             for c in collide_player2_floor_wall:
                 self.player2.vel *= -1
-                self.player2.health -= 5
+                self.player2.health -= WALL_COLLISION_DAMAGE
 
             collide_player2_obstacle = pygame.sprite.spritecollide(self.player2, Obstacle.group, False)
             for c in collide_player2_obstacle:
                 self.player2.vel *= -1
-                self.player2.health -= 10
+                self.player2.health -= OBSTACLE_HIT_DAMAGE
+
+            if pygame.Rect.colliderect(self.player2.rect, self.blue_station.rect) == True:
+                self.player2.vel *= -0.99
+                if self.player2.fuel < FUEL_TANK_SIZE:
+                    self.player2.fuel += 1
 
 
 
