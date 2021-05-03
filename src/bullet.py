@@ -13,8 +13,6 @@ class Bullet(MovingObject):
     group = pygame.sprite.Group()
 
     def __init__(self, game, spaceship) -> None:
-        # game:         The game object
-        # spaceship:    The ship that called the shot
         super().__init__()
         self.shooter = spaceship
 

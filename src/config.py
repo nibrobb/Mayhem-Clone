@@ -51,5 +51,6 @@ OBSTACLE_HIT_DAMAGE = 10
 BOTTOM_LEFT = 0
 BOTTOM_RIGHT = 1
 
+# Constants for choosing color of refueling stations
 TEAM_RED = 0
 TEAM_BLUE = 1

@@ -6,6 +6,7 @@ from config import *
 
 
 class RefuelStation(StaticObject):
+    """ Refueling station """
     def __init__(self, team, pos) -> None:
         super().__init__()
         if team == TEAM_RED:

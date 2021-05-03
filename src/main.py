@@ -12,7 +12,7 @@ from obstacle import Obstacle
 from bullet import Bullet
 
 class Game:
-    """  """
+    """ Mayhem-clone made by Robin Kristiansen """
     def __init__(self) -> None:
         pygame.init()
         self.screen = pygame.display.set_mode(SCREEN_RES)
@@ -51,6 +51,7 @@ class Game:
 
 
     def spawn_floor_wall(self) -> None:
+        """ Spawn in walls, floors and ceiling """
         self.floor = FloorWall(SCREEN_RES[0], 20, (SCREEN_RES[0], SCREEN_RES[1]), COLOR_DARK_GRAY)
         self.roof  = FloorWall(SCREEN_RES[0], 20, (SCREEN_RES[0], 20), COLOR_DARK_GRAY)
         self.wall1 = FloorWall(20, SCREEN_RES[1], (20, SCREEN_RES[1]), COLOR_DARK_GRAY)
@@ -59,11 +60,12 @@ class Game:
 
 
     def spawn_obstacles(self) -> None:
-        """ Spawns obstacles """
+        """ Spawns obstacle(s) """
         obs = Obstacle(COLOR_GREEN, 100, 100, (SCREEN_RES[0]//2, SCREEN_RES[1]//2))
         self.all_sprites.add(obs)
 
     def spawn_refuel_station(self) -> None:
+        """ Spawns refueling stations for the two players or \"teams\" """
         self.blue_station = RefuelStation(TEAM_BLUE, (100, 500))
         self.red_station = RefuelStation(TEAM_RED, (SCREEN_RES[0] - 100, 500))
         self.all_sprites.add(self.blue_station, self.red_station)
@@ -143,25 +145,25 @@ class Game:
 
         #---------- Player 1 ----------#
         if self.player1.alive():
-            if keys[ord('w')]:              # Thrust
-                self.player1.thrust()
-            if keys[ord('a')]:              # Rotate left (ccw)
-                self.player1.rotate(5)
-            if keys[ord('d')]:              # Rotate right (cc)
-                self.player1.rotate(-5)
+            if keys[ord('w')]:
+                self.player1.thrust()       # Thrust
+            if keys[ord('a')]:
+                self.player1.rotate(5)      # Rotate left (ccw)
+            if keys[ord('d')]:
+                self.player1.rotate(-5)     # Roatate right (cw)
             if keys[pygame.K_SPACE]:
-                self.player1.fire()
+                self.player1.fire()         # Fire
 
         #---------- Player 2 ----------#
         if self.player2.alive():
             if keys[pygame.K_LEFT]:
-                self.player2.rotate(5)
+                self.player2.rotate(5)      # Rotate left (ccw)
             if keys[pygame.K_RIGHT]:
-                self.player2.rotate(-5)
+                self.player2.rotate(-5)     # Rotate right (cw)
             if keys[pygame.K_UP]:
-                self.player2.thrust()
+                self.player2.thrust()       # Thrust
             if keys[pygame.K_RCTRL]:
-                self.player2.fire()
+                self.player2.fire()         # Fire
 
 
     def update(self) -> None:
@@ -170,6 +172,7 @@ class Game:
         self.all_sprites.update()
     
     def display_info(self) -> None:
+        """ Used to display info about players, such as score, health, ammo and fuel """
         text_size = 20
         font_family = "Arial"
 
@@ -249,6 +252,7 @@ class Game:
             offset += text.get_height()
 
     def draw(self) -> None:
+        """ Draw all visible sprites to the screen """
         self.screen.fill(COLOR_BLACK)
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, (sprite.rect.x, sprite.rect.y))
@@ -256,11 +260,13 @@ class Game:
         pygame.display.flip()
 
     def reset(self) -> None:
+        """ Reset players stats except score """
         self.player1.reset()
         self.player2.reset()
         self.all_sprites.add(self.player1, self.player2)
 
     def quit(self) -> None:
+        """ Quit the game """
         pygame.quit()
 
 

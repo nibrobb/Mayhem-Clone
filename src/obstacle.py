@@ -3,7 +3,7 @@ import pygame
 from static_object import StaticObject
 
 class Obstacle(StaticObject):
-    """ Defines obstacles """
+    """ Use this class to make obstacles """
     group = pygame.sprite.Group()
 
     def __init__(self, color, width, height, pos):
