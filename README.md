@@ -11,7 +11,7 @@ A simple two-player space game. Implemented as part of a mandatory assignment in
 $ python3 main.py
 ```
 
-Controls:
+## Controls:
 ### Player 1
 |Key|Action|
 |:---|:---|
