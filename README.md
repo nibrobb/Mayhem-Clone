@@ -1,16 +1,28 @@
 # Mayhem-Clone
 
-Usage: `python3 main.py` or `./main.py`
+A simple two-player space game. Implemented as part of a mandatory assignment in INF-1400 at UiT
+
+## Quick start
+
+```console
+$ python3 main.py
+```
+
+![Mayhem](imgs/mayhem.png)
 
 Controls:
 ### Player 1
-* <kbd>W</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thrust
-* <kbd>A</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rotate left (counter-clockwise)
-* <kbd>D</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rotate right (clockwise)
-* <kbd>Space</kbd>&nbsp;&nbsp;&nbsp;Fire
+|Key|Action|
+|:---|:---|
+| <kbd>W</kbd> | Thrust |
+| <kbd>A</kbd> | Rotate left |
+| <kbd>D</kbd> | Rotate right |
+| <kbd>Space</kbd> | Fire |
 
 ### Player 2
-* <kbd>Up</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thrust
-* <kbd>Left</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rotate left
-* <kbd>Right</kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rotate right
-* <kbd>Right Ctrl</kbd>&nbsp;Fire
+|Key|Action|
+|:---|:---|
+| <kbd>Up</kbd> | Thrust |
+| <kbd>Left</kbd> | Rotate left |
+| <kbd>Right</kbd> | Rotate right |
+| <kbd>Right Ctrl</kbd> | Fire |
