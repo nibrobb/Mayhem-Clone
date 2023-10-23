@@ -2,13 +2,14 @@
 
 A simple two-player space game. Implemented as part of a mandatory assignment in INF-1400 at UiT
 
+
+![Mayhem](imgs/mayhem.png)
+
 ## Quick start
 
 ```console
 $ python3 main.py
 ```
-
-![Mayhem](imgs/mayhem.png)
 
 Controls:
 ### Player 1
